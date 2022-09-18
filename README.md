@@ -1,5 +1,6 @@
 # 第一次接觸 Flower 就上手
-> Flower 官方網站 [在這裡](https://flower.dev/).
+> Flower [官方網站](https://flower.dev/).
+> Flower 進階練習-[使用 mnist data](https://hackmd.io/@GvGUX7NOQlezhmIjgNA4tw/ry6DqV4bs).
 ## 硬體設備及環境
 - 作業系統 Windows10 專業版 21H1
 - 中央處理器 Intel ® Core i7-2600 CPU @ 3.40GHz
@@ -73,3 +74,6 @@ fl.server.start_server(config=fl.server.ServerConfig(num_rounds=3))
 ### 執行
 看到這邊先恭喜你成功架設了第一個 FL 系統了，我們趕快來啟動它吧！
 要注意這個專案需要執行兩個 client 端才能執行喔
+
+
+[程式碼](https://github.com/sheway/Flower)
