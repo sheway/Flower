@@ -1,5 +1,5 @@
 # 第一次接觸 Flower 就上手
-> Flower [官方網站](https://flower.dev/).
+> Flower [官方網站](https://flower.dev/)\
 > Flower 進階練習-[使用 mnist data](https://hackmd.io/@GvGUX7NOQlezhmIjgNA4tw/ry6DqV4bs).
 ## 硬體設備及環境
 - 作業系統 Windows10 專業版 21H1
@@ -20,23 +20,24 @@ pip install tensorflow
 [範例1](https://flower.dev/docs/quickstart-tensorflow.html) ，使用 tensorflow 及 flower 建構一個自己的 federated learning 系統吧
 ### Client 端
 首先新增檔名為 `client.py`，並匯入 flower 及 tensorflow 套件
-```python=
+```python=2
 import flwr as fl
 import tensorflow as tf
 ```
-我們使用 cifar10 資料集，並切分成 training 及 testing dataset
-```python=
-(x_train, y_train), (x_test, y_test) = tf.keras.datasets.cifar10.load_data()
-```
 
 接下來我們需要一個模型，我們使用 MobilNetV2 ，設定 10 個輸出類別
-```python=
+```python=11
 model = tf.keras.applications.MobileNetV2((32, 32, 3), classes=10, weights=None)
 model.compile("adam", "sparse_categorical_crossentropy", metrics=["accuracy"])
 ```
 
+我們使用 cifar10 資料集，並切分成 training 及 testing dataset
+```python=13
+(x_train, y_train), (x_test, y_test) = tf.keras.datasets.cifar10.load_data()
+```
+
 有了 model 以後，要用 client 來控制這個 model 來 training 或做其他操作，並能夠將 weights 傳遞給 server。
-```python=
+```python=16
 class CifarClient(fl.client.NumPyClient):
     def get_parameters(self, config):
         return model.get_weights()
@@ -58,7 +59,7 @@ Flower client 有三個必需的 function
 
 到了這裡，Flower 的 client 算是架設完成了。接下來用下面程式碼來啟動客戶端
 
-```python=2
+```python=32
 fl.client.start_numpy_client("localhost:7001", client=CifarClient())
 ```
 這部分使用 `localhost` 與官方文件不同，若有錯誤請改回使用 `[::]`
